@@ -31,8 +31,7 @@ const courseSchema = new mongoose.Schema({
 				required: 'You must supply a question!'
 			},
 			isCorrect: {
-				type: Boolean,
-				required: 'You must mark which one is correct'
+				type: Boolean
 			}
 		}]
 	}]

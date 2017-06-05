@@ -1,4 +1,7 @@
 extends layout
 
+include mixins/_courseForm
+
 block content
 	h2 Here
+	+courseForm(course)

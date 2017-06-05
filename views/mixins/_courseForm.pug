@@ -1,0 +1,25 @@
+mixin courseForm(course =  {})
+	form(action=`/add/${course._id || ''}` method="POST" class="course__form")
+		label(for="name") Title
+		input(type="text" name="name" value=course.title)
+		<br/>
+		label(for="description") Description
+		textarea(name="description" )=course.description
+		<br/>
+		label(for="video") Video
+		input(type="text" name="video" value=course.video)
+		<br/>
+		each val in [1,2,3]
+			//- Questions: Question Answers
+			label(for="question") Question #{val}
+			input(type="text" id="question" name=`questions[${val}][question]` )
+			<br/>
+			each ans in [1,2,3]
+				label(for="answers") Answer #{ans}
+				input(type="text" id="answers" name=`questions[${val}][answers][${ans}][choice]` )
+				label(for=choice) Correct Choice
+				input(type="checkbox" id="choice" value=choice name=`questions[${val}][answers][${ans}][isCorrect]` )
+				<br/>
+			<br/>
+		
+		input(type="submit" value="Save ->" class="button")

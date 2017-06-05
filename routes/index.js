@@ -11,6 +11,7 @@ const { catchErrors } = require('../handlers/errorHandlers'); //{} object destru
 router.get('/', courseController.homePage );
 router.get('/courses', catchErrors(courseController.getCourses) );
 router.get('/add', courseController.addCourse );
+router.post('/add', catchErrors(courseController.createCourse) );
 
 
 module.exports = router;
