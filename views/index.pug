@@ -1,0 +1,9 @@
+extends layout
+
+block content
+	.inner-content
+		h4 Welcome
+		p This is a simple testing app for tracking user experience. This will be broken into a few different methodologies. 
+		p The first way is in how people respond to different images to decide which course to take. Boxes will be in a CSS grid, with 3 coursesoverall. One will have an image from the video, the other two will be colored boxes with different animations. The API will record if the user hovers over any of the boxes or if it just goes to a single one.
+		p From there we track video information. How long after loading the page does it take the user to watch the video. When do they stop the video? And how long after stopping the video do they take to go to the next page. This information will be recorded to judge how well they answer the questions that follow.
+		p After the video there will be a few questions. We can compare the number of correct answers to how much of the video they watch, and if they didnt get the questions right, we can kick them back to the video and track the information again until they get the information right. So that way we are also able to see if they decide not to watch the video and just guess, which could be used later on in retraining if problems arise because of these failures.

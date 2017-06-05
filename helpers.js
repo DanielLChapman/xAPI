@@ -15,5 +15,7 @@ exports.dump = (obj) => JSON.stringify(obj, null, 2);
 exports.siteName = `App-Tracking!`;
 
 exports.menu = [
-  /*{ slug: '/', title: 'Blah', icon: '', },*/
+  { slug: '/', title: 'Home', },
+	{ slug: '/courses', title: 'Courses', },
+	{ slug: '/data', title: 'Data', },
 ];

@@ -1,14 +1,24 @@
 doctype html
 html
-  head
-    title= `${title} | ${h.siteName}`
-    link(rel='stylesheet', href='/dist/style.css')
-    meta(name="viewport" content="width=device-width, initial-scale=1")
-  body
-    block header
+	head
+		title= `${title} | ${h.siteName}`
+		link(rel='stylesheet', href='/dist/style.css')
+		meta(name="viewport" content="width=device-width, initial-scale=1")
+		link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Oxygen|Source+Sans+Pro')
+	body
+		block sidebar
+			.side-nav
+				h3 API-Tracking
+				
+				.menu
+					ul
+						each item in h.menu
+							li
+								a(href=item.slug, class=(currentPath.startsWith(item.slug) ? 'nav__link--active' : ''))
+									span #{item.title}
 
-    .content
-      block content
+		.content
+			block content
 
-    block scripts
-      script(src="/dist/App.bundle.js")
+		block scripts
+			script(src="/dist/App.bundle.js")
