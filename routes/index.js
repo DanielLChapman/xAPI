@@ -1,9 +1,14 @@
 const express = require('express');
 const router = express.Router();
 
+
+const courseController = require('../controllers/courseController');
+
+const { catchErrors } = require('../handlers/errorHandlers'); //{} object destructuring.
+
 // Do work here
-router.get('/', (req, res) => {
-  res.render('index', {title: 'Home'});
-});
+
+router.get('/', courseController.homePage );
+
 
 module.exports = router;

@@ -17,6 +17,8 @@ mongoose.connection.on('error', (err) => {
   console.error(`🙅 🚫 🙅 🚫 🙅 🚫 🙅 🚫 → ${err.message}`);
 });
 
+require('./models/Course');
+
 
 // Start our app!
 const app = require('./app');
