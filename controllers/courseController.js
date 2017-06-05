@@ -6,3 +6,14 @@ exports.homePage = (req, res) => {
 		title: 'index'
 	});
 };
+
+exports.getCourses = async (req, res) => {
+	const courses = await Course.find();
+	
+	res.render('courses', { title: 'Courses', courses});
+};
+
+exports.addCourse = (req, res) => {
+	
+	res.render('add', { title: 'Add Course'});
+};

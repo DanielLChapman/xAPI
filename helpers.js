@@ -17,5 +17,6 @@ exports.siteName = `App-Tracking!`;
 exports.menu = [
   { slug: '/', title: 'Home', },
 	{ slug: '/courses', title: 'Courses', },
+	{ slug: '/add', title: 'Add Course', },
 	{ slug: '/data', title: 'Data', },
 ];
