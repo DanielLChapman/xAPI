@@ -19,6 +19,12 @@ const courseSchema = new mongoose.Schema({
 		type: Date,
 		default: Date.now
 	},
+	style: {
+		type: String
+	},
+	image: {
+		type: String,
+	},
 	questions: [{
 		question: {
 			type: String,

@@ -153,23 +153,26 @@ form {
   position: relative;
   left: 25px;
   top: 5%; }
-  .inner-content-course .section {
-    width: 100%;
-    border: 1px solid black;
-    margin: 0 auto;
-    display: -ms-flexbox;
-    display: flex;
-    height: auto; }
-    .inner-content-course .section .box {
-      -ms-flex-positive: 2;
-          flex-grow: 2;
-      -ms-flex-negative: 2;
-          flex-shrink: 2;
-      -ms-flex-preferred-size: 22px;
-          flex-basis: 22px;
-      height: 13vw;
-      border: 1px solid black; }
 
+/*
+	.section {
+		width: 100%;
+		border:1px solid black;
+		margin: 0 auto;
+		display: flex;
+		height: auto;
+		
+		.box {
+			flex-grow: 2;
+			flex-shrink: 2;
+			flex-basis: 22px;
+			height: 13vw;
+			border:1px solid black;
+			background-color: #4717F6;
+		}
+	}
+}
+*/
 body, html {
   width: 100%;
   height: 100%;

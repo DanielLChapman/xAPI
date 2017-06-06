@@ -3,11 +3,8 @@ extends layout
 
 block content
 	.inner-content-course(style="border:1px solid black")
-		each column in [1,2,3,4,5]
-			.section
-				each row in  [1,2,3,4]
-					.box 
-						| #{column} + #{row}
-
-			
-			
+		pre= h.dump(courses)
+		each course in courses
+			if course.image
+				img(src=`${course.image}`)
+				

@@ -12,6 +12,14 @@ mixin courseForm(course =  {})
 			label(for="video") Video
 			input(type="text" name="video" value=course.video class="form-control")
 			<br/>
+		.form-group
+			label(for="style") Style
+			input(type="text" name="style" value=course.style class="form-control")
+			<br/>
+		.form-group
+			label(for="image") Image URL
+			input(type="text" name="image" value=course.image class="form-control")
+			<br/>
 		each val in [1,2,3]
 			.question
 				//- Questions: Question Answers
