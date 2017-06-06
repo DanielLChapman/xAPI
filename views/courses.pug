@@ -2,5 +2,12 @@ extends layout
 
 
 block content
-	h2 Here
-	
+	.inner-content-course(style="border:1px solid black")
+		each column in [1,2,3,4,5]
+			.section
+				each row in  [1,2,3,4]
+					.box 
+						| #{column} + #{row}
+
+			
+			
