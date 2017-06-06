@@ -5,6 +5,10 @@ html
 		link(rel='stylesheet', href='/dist/style.css')
 		meta(name="viewport" content="width=device-width, initial-scale=1")
 		link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Oxygen|Source+Sans+Pro')
+		
+
+
+		
 	body
 		block sidebar
 			.side-nav
@@ -16,7 +20,22 @@ html
 							li
 								a(href=item.slug, class=(currentPath.startsWith(item.slug) ? 'nav__link--active' : ''))
 									span #{item.title}
-
+						if user
+							li
+								a(href='/logout', class="logout")
+									span Log Out
+						else 
+							li
+								a(href='/login', class="login")
+									span Login
+							li
+								a(href='/register', class="register")
+									span Register
+						if user && user.admin
+							li 
+								a(href='/add', class="add")
+									span Add Course
+									
 		block messages
 			if locals.flashes
 				.inner

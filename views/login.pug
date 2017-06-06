@@ -1,0 +1,8 @@
+extends layout
+
+include mixins/_loginForm
+
+block content
+	+loginForm()
+	
+	a(href="/register" style="text-decoration: none; color: inherit;") <h3>Dont have an account? Register Here!</h3>

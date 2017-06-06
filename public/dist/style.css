@@ -99,6 +99,53 @@
   .flash p {
     margin: 0; }
 
+form {
+  height: auto;
+  width: 90%;
+  left: 15px;
+  height: auto; }
+  form input {
+    width: 100%;
+    margin: 5px;
+    height: 20px;
+    border-radius: 5px;
+    border: 1px solid #A239CA; }
+  form label {
+    width: 100%; }
+  form textarea {
+    width: 100%;
+    margin: 5px;
+    height: 35px;
+    border-radius: 5px;
+    border: 1px solid #A239CA; }
+  form .answer-portion {
+    margin-bottom: 5px;
+    margin-top: 5px;
+    height: auto;
+    display: -ms-flexbox;
+    display: flex; }
+    form .answer-portion input {
+      width: initial; }
+    form .answer-portion label {
+      width: initial; }
+    form .answer-portion .checkbox {
+      width: 200px; }
+    form .answer-portion .answers {
+      width: 100%; }
+      form .answer-portion .answers input {
+        width: 100%; }
+  form .question {
+    margin-top: 15px;
+    position: relative;
+    height: auto; }
+  form .button {
+    height: 35px;
+    border: 1px solid #A239CA;
+    border-radius: 15px;
+    background: white; }
+    form .button:hover {
+      background: #A239CA; }
+
 body, html {
   width: 100%;
   height: 100%;
@@ -114,7 +161,7 @@ body {
 h1, h2, h3 {
   font-family: 'Oxygen', sans-serif; }
 
-h4, h5, h6, p, a {
+h4, h5, h6, p, a, label, .button {
   font-family: 'Source Sans Pro', sans-serif; }
 
 /*# sourceMappingURL=style.css.map*/

@@ -1,0 +1,58 @@
+form {
+	height: auto;
+	width: 90%;
+	left: 15px;
+	height: auto;
+	input {
+		width: 100%;
+		margin: 5px;
+		height: 20px;
+		border-radius: 5px;
+		border:1px solid $borders;
+	}
+	label {
+		width: 100%;
+	}
+	textarea {
+		width: 100%;
+		margin: 5px;
+		height: 35px;
+		border-radius: 5px;
+		border:1px solid $borders;
+	}
+	.answer-portion {
+		margin-bottom: 5px;
+		margin-top: 5px;
+		height: auto;
+		display: flex;
+		input {
+			width: initial;
+		}
+		label {
+			width: initial;
+		}
+		.checkbox {
+			width: 200px;
+		}
+		.answers {
+			width: 100%;
+			input {
+				width: 100%;
+			}
+		}
+	}
+	.question {
+		margin-top: 15px;
+		position: relative;
+		height: auto;
+	}
+	.button {
+		height: 35px;
+		border:1px solid $borders;
+		border-radius: 15px;
+		background: white;
+		&:hover {
+			background: $borders;
+		}
+	}
+}
