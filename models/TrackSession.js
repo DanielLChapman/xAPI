@@ -47,33 +47,25 @@ const sessionSchema = new mongoose.Schema({
 			required: 'Must have watched a video'
 		}
 	}],
-	
+	questions: [{
+		question: [{
+			hovered: [{
+				type: mongoose.Schema.ObjectId,
+				ref: 'Course'
+			}],
+			answer: {
+				type: mongoose.Schema.ObjectId,
+				ref: 'Course'
+			},
+			answerCorrect: {
+				type: Boolean
+			}
+		}],
+	}],
 	created: {
 		type: Date,
 		default: Date.now
-	},
-	style: {
-		type: String
-	},
-	image: {
-		type: String,
-	},
-	questions: [{
-		question: {
-			type: String,
-			default: ' ',
-			required: 'Question required'
-		},
-		answers: [{
-			choice: {
-				type: String,
-				required: 'You must supply a question!'
-			},
-			isCorrect: {
-				type: Boolean
-			}
-		}]
-	}]
+	}
 });
 
-module.exports = mongoose.model('Session', sessionSchema);
+module.exports = mongoose.model('TrackSession', sessionSchema);

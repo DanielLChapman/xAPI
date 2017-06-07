@@ -2,10 +2,8 @@ extends layout
 
 
 block content
-	.inner-content-course(style="border:1px solid black")
-		h2 #{time}
-		
+	.inner-content-course()
 		each course in courses
-			if course.image
-				img(src=`${course.image}`)
-				
+			.box(class=`${course.style}`)
+				if course.style === "image"
+					img(src=`${course.image}` alt="course-image" oid=`${course.id}`)

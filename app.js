@@ -12,6 +12,7 @@ const expressValidator = require('express-validator');
 const routes = require('./routes/index');
 const helpers = require('./helpers');
 const errorHandlers = require('./handlers/errorHandlers');
+const storage = require('node-persist');
 require('./handlers/passport');
 
 // create our Express app
@@ -34,6 +35,7 @@ app.use(expressValidator());
 // populates req.cookies with any cookies that came along with the request
 app.use(cookieParser());
 
+storage.initSync();
 
 // Sessions allow us to store data on visitors from request to request
 // This keeps users logged in and allows us to send flash messages

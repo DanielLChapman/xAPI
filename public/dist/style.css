@@ -146,13 +146,70 @@ form {
     form .button:hover {
       background: #A239CA; }
 
+@keyframes growAni {
+  0% {
+    width: 200px;
+    height: 200px;
+    top: 0px; }
+  50% {
+    width: 250px;
+    height: 250px;
+    top: 25px; }
+  100% {
+    width: 200px;
+    height: 200px;
+    top: 0px;
+    left: 0px; } }
+
+@keyframes shrinkAni {
+  0% {
+    width: 200px;
+    height: 200px;
+    top: 0; }
+  50% {
+    width: 150px;
+    height: 150px;
+    top: -25px; }
+  100% {
+    width: 200px;
+    height: 200px;
+    top: 0px;
+    left: 0px; } }
+
 .inner-content-course {
-  min-width: 340px;
-  width: 80%;
+  min-width: 800px;
+  text-align: center;
+  margin: 0 auto;
   height: auto;
   position: relative;
   left: 25px;
-  top: 5%; }
+  top: 25%; }
+  .inner-content-course .box {
+    width: 200px;
+    display: inline-block;
+    height: 200px;
+    border: 1px solid black;
+    margin-right: 50px;
+    background: #4717F6;
+    position: relative; }
+
+.grow {
+  /* Safari 4+ */
+  /* Fx 5+ */
+  /* Opera 12+ */
+  animation: growAni 5s infinite;
+  /* IE 10+ */ }
+
+.shrink {
+  /* Safari 4+ */
+  /* Fx 5+ */
+  /* Opera 12+ */
+  animation: shrinkAni 5s infinite;
+  /* IE 10+ */ }
+
+.image img {
+  width: 100%;
+  height: 100%; }
 
 /*
 	.section {
