@@ -2,15 +2,17 @@ const mongoose = require('mongoose');
 const Course = mongoose.model('Course');
 
 exports.homePage = (req, res) => {
+
 	res.render('index', {
-		title: 'index'
+		title: 'index',
 	});
 };
 
 exports.getCourses = async (req, res) => {
 	const courses = await Course.find();
+	const timeEnter = new Date();
 	
-	res.render('courses', { title: 'Courses', courses});
+	res.render('courses', { title: 'Courses', courses, time: timeEnter.toISOString()});
 };
 
 exports.addCourse = (req, res) => {

@@ -3,7 +3,8 @@ extends layout
 
 block content
 	.inner-content-course(style="border:1px solid black")
-		pre= h.dump(courses)
+		h2 #{time}
+		
 		each course in courses
 			if course.image
 				img(src=`${course.image}`)

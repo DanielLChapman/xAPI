@@ -11,8 +11,12 @@ const { catchErrors } = require('../handlers/errorHandlers'); //{} object destru
 
 router.get('/', courseController.homePage );
 router.get('/courses', catchErrors(courseController.getCourses) );
-router.get('/add', courseController.addCourse );
-router.post('/add', catchErrors(courseController.createCourse) );
+router.get('/add', 
+	authController.isLoggedIn,	
+	courseController.addCourse );
+router.post('/add', 
+	authController.isLoggedIn,
+	catchErrors(courseController.createCourse) );
 
 //login
 router.get('/login', userController.loginForm);

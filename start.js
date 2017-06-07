@@ -18,7 +18,7 @@ mongoose.connection.on('error', (err) => {
 });
 
 require('./models/Course');
-
+require('./models/Session');
 require('./models/User');
 
 // Start our app!
