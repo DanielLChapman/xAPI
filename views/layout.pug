@@ -5,9 +5,9 @@ html
 		link(rel='stylesheet', href='/dist/style.css')
 		meta(name="viewport" content="width=device-width, initial-scale=1")
 		link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Oxygen|Source+Sans+Pro')
-		
-
-
+		block scripts
+			script(src="/dist/App.bundle.js")
+			script(src="/dist/courseApi.js")
 		
 	body
 		block sidebar
@@ -48,6 +48,3 @@ html
 									button.flash__remove(onClick="this.parentElement.remove()") &times;
 		.content
 			block content
-
-		block scripts
-			script(src="/dist/App.bundle.js")

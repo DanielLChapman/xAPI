@@ -4,6 +4,6 @@ extends layout
 block content
 	.inner-content-course()
 		each course in courses
-			.box(class=`${course.style}`)
+			.box(class=`${course.style}` onmouseover=`hoverOid('hover', '${course._id}');` oid=`${course._id}`)
 				if course.style === "image"
-					img(src=`${course.image}` alt="course-image" oid=`${course.id}`)
+					img(src=`${course.image}` alt="course-image")

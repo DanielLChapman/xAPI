@@ -8,10 +8,16 @@ const sessionSchema = new mongoose.Schema({
 		ref: 'User',
 		required: 'You must be logged in'
 	},
-	course_hover: [{
-		type: mongoose.Schema.ObjectId,
-		ref: 'Course'
-	}],
+	courseHover: {
+		timeEnter: {
+			type: Date,
+			default: Date.now
+		},
+		selection: [{
+			type: mongoose.Schema.ObjectId,
+			ref: 'Course'
+		}]
+	},
 	course_selection: {
 		selection: {
 			type: mongoose.Schema.ObjectId,
@@ -68,4 +74,11 @@ const sessionSchema = new mongoose.Schema({
 	}
 });
 
+function autopopulate(next) {
+	this.populate('courseHover.selection');
+	next();
+}
+
+sessionSchema.pre('find', autopopulate);
+sessionSchema.pre('findOne', autopopulate);
 module.exports = mongoose.model('TrackSession', sessionSchema);

@@ -36,7 +36,7 @@ router.post('/register',
 
 //api
 //hover
-router.post('/courseHover/:oid', sessionController.apiUpdateSession);
+router.post('/api/apiUpdateSession/:switch/:oid', sessionController.apiUpdateSession);
 
 router.get('/logout', authController.logout);
 
