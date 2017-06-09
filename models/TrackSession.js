@@ -25,34 +25,28 @@ const sessionSchema = new mongoose.Schema({
 		},
 		timeEnter: {
 			type: Date,
+			default: Date.now
 		},
 		timeLeave: {
 			type: Date,
 			default: Date.now
 		}
 	},
-	video: [{
+	video: {
 		timeEnterPage: {
 			type: Date,
 			default: Date.now
 		}, 
 		timeLeavePage: {
 			type: Date,
-			default: Date.now
 		},
 		timeStart: {
 			type: Date,
-			default: Date.now
 		},
 		durationWatched: {
-			type: Number,
-			required: 'Must watch some of the video'
-		},
-		videoChoice: {
-			type: String,
-			required: 'Must have watched a video'
+			type: Number
 		}
-	}],
+	},
 	questions: [{
 		question: [{
 			hovered: [{

@@ -25,3 +25,8 @@ exports.createCourse = async (req, res) => {
 	req.flash('success', `Successfully Created ${course.name}.` );
 	res.redirect('/');
 }
+
+exports.getVideo = async (req, res) => {
+	const course = await Course.findOne({_id: req.params.id }).exec();
+	res.render('video', { title: 'Video Page', course});
+}

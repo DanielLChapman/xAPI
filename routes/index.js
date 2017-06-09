@@ -11,9 +11,6 @@ const { catchErrors } = require('../handlers/errorHandlers'); //{} object destru
 // Do work here
 
 router.get('/', courseController.homePage );
-router.get('/courses', 
-	catchErrors(sessionController.createSession),				 
-	catchErrors(courseController.getCourses) );
 router.get('/add', 
 	authController.isLoggedIn,	
 	courseController.addCourse );
@@ -22,6 +19,17 @@ router.post('/add',
 	catchErrors(courseController.createCourse) );
 
 router.get('/test', sessionController.test);
+
+router.get('/courses', 
+	authController.isLoggedIn,
+	catchErrors(sessionController.createSession),				 
+	catchErrors(courseController.getCourses) );
+
+router.get('/course/:id', 
+	authController.isLoggedIn,
+	sessionController.hasStartedSession,
+	catchErrors(sessionController.updateTime),
+	catchErrors(courseController.getVideo) );
 
 //login
 router.get('/login', userController.loginForm);
