@@ -1,13 +1,15 @@
 extends layout
 
 block content
-	.inner
+	.inner-content
 		video(width="640", height="480", controls, class="video-player")
-			source(src=`${course.video}`, type="video/mp4")
+			source(src="https://s3.amazonaws.com/rustyfreeflowitems/Video-1.mp4", type="video/mp4")
 			| Your browser does not support the video tag for mp4s. 
 		
 		button(onclick="moveToQuestions();")
 			Continue to questions
-			
-	script
-		| var video = document.getElementsByClassName('video-player')[0];
+		
+		
+
+
+		

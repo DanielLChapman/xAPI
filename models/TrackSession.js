@@ -32,7 +32,7 @@ const sessionSchema = new mongoose.Schema({
 			default: Date.now
 		}
 	},
-	video: {
+	video: [{
 		timeEnterPage: {
 			type: Date,
 			default: Date.now
@@ -46,7 +46,7 @@ const sessionSchema = new mongoose.Schema({
 		durationWatched: {
 			type: Number
 		}
-	},
+	}],
 	questions: [{
 		question: [{
 			hovered: [{

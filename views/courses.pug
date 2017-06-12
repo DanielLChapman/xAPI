@@ -4,7 +4,7 @@ extends layout
 block content
 	.inner-content-course()
 		each course in courses
-			.box(class=`${course.style}` onmouseover=`hoverOid('hover', '${course._id}');`)
+			.box(class=`${course.style}` onmouseover=`apiUpdate('hover', '${course._id}'), ''`)
 				if course.style === "image"
 					img(src=`${course.image}` style="display: block;" alt="course-image")
 					a(href=`/course/${course._id}` style="width: 100%; height: 100%; display: block; border:2px solid orange; vertical-align: top; top: -100%; position: relative;")

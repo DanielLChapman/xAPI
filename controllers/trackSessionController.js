@@ -16,7 +16,8 @@ exports.createSession = async (req, res, next) => {
 };
 
 exports.test = (req, res) => {
-	res.json(storage.getItemSync('session'));
+	//res.json(storage.getItemSync('session'));
+	res.render('videoTest', { title: 'Test'});
 }
 
 exports.updateSession = async (req, res, next) => {
@@ -28,16 +29,28 @@ exports.updateSession = async (req, res, next) => {
 	next();
 }
 
-exports.apiUpdateSession = async (req, res) => {
+exports.apiUpdateHover = async( req, res) => {
 	const session = await Session.findOne({_id: storage.getItemSync('session_id') }).exec();
-	switch(req.params.switch) {
-		case 'hover': 
-			session.courseHover.selection.push(req.params.oid);
-			break;
-	}
-	
+	session.courseHover.selection.push(req.params.oid);
 	await session.save();
 	
+	res.json('Updated');
+}
+
+exports.apiUpdateVideo = async (req, res) => {
+	const session = await Session.findOne({_id: storage.getItemSync('session_id') }).exec();
+	
+	var Video = {
+		timeLeavePage: Date.now(),
+		timeEnterPage: storage.getItemSync('timeEnterVideo'),
+		durationWatched: req.params.oid,
+		timeStart: req.params.oid2
+	}
+
+	session.video.push(Video);
+
+	await session.save();
+	console.log(Video);
 	res.json('Updated');
 }
 
@@ -54,8 +67,8 @@ exports.updateTime = async (req, res, next) => {
 	const session = await Session.findOne({_id: storage.getItemSync('session_id') }).exec();
 	session.course_selection.timeLeave = Date.now();
 	session.course_selection.selection = req.params.id;
-	session.video.timeEnterPage = Date.now();
-	
+	const prom = promisify(storage.setItemSync('timeEnterVideo', Date.now()));
+	await prom;
 	await session.save();
 	next();
 }
