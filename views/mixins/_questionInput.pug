@@ -1,0 +1,8 @@
+mixin questionsInput(question, count)
+	p.question #{question.question}
+		
+		each answer in question.answers
+			<br />
+			label(for=`questions[${count}][question]` style="margin-left: 15px; width: 100px;") #{answer.choice}   
+			input(type="radio" name=`questions[${count}][question]` value=`${answer.choice}` id=`${answer._id}` style="margin-left: 10px; width: 100px; position: relative; top: 5px;")
+			

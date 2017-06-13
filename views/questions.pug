@@ -1,0 +1,14 @@
+extends layout
+
+include mixins/_questionInput
+
+block content
+	.inner
+		h2= title
+		- var count = 0;
+		form.form(action=`./answers` method="POST" name='answers')
+			each question in course.questions
+				+questionsInput(question, count)
+				- count++;
+		
+			button(type="submit") Submit	

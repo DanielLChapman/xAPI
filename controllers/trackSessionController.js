@@ -50,7 +50,7 @@ exports.apiUpdateVideo = async (req, res) => {
 	session.video.push(Video);
 
 	await session.save();
-	console.log(Video);
+
 	res.json('Updated');
 }
 
@@ -70,5 +70,17 @@ exports.updateTime = async (req, res, next) => {
 	const prom = promisify(storage.setItemSync('timeEnterVideo', Date.now()));
 	await prom;
 	await session.save();
+	next();
+}
+
+
+exports.storeQuestionSession = async (req, res, next) => {
+	const session = await Session.findOne({_id: storage.getItemSync('session_id') }).exec();
+	session.questions.courses.push(req.body.coursesObj);
+	await session.save();
+	
+	if (req.body.correct = true) {
+		
+	}
 	next();
 }

@@ -23,7 +23,7 @@ function apiUpdate(type, oid, oid2) {
 	
 	http.onreadystatechange = function() {//Call a function when the state changes.
     if(http.readyState == 4 && http.status == 200) {
-        console.log('updated');
+        return 'Updated'
     }
 	}
 	
@@ -35,7 +35,7 @@ var videoWatched = 0;
 var isPlaying = 0;
 var timeStartedPlaying = Date.now();
 
-if ( location.href.match(/course/) && !location.href.match(/courses/) ) {
+if ( location.href.match(/course/) && !location.href.match(/courses/) && !location.href.match(/questions/) ) {
     var t = setInterval(function () {
     if(video.readyState > 0) {
 				try {
@@ -54,15 +54,14 @@ if ( location.href.match(/course/) && !location.href.match(/courses/) ) {
 }, 500);
 	
 	function moveToQuestions() {
-		apiUpdate('videoWatched', videoWatched, timeStartedPlaying);
-		
-		if (isPlaying == 1) {
-			console.log(timeStartedPlaying);
-		}
+		var moveOn = '/';
+		moveOn = apiUpdate('videoWatched', videoWatched, timeStartedPlaying);
+		var at = setInterval(function() {
+			if (moveOn = 'Updated') {
+				clearInterval(t);
+				clearInterval(at);
+				location.href = location.href + "/questions/";
+			}
+		}, 500);
 	}
 }
-//enter page, loop until duration has changed, and then record the time it started playing into the database
-//When they go to leave the page, first, record the duration played and the time they left. 
-//When you leave the video page, we should push the records of the current video to the records incase we need to watch the video more then once. Or, we make videos an array and wait to push all the information until we leave the page, will have to figure out which one will be better. 
-
-//Date leave can be set when we transfer pages. 

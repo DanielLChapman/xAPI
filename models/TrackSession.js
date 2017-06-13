@@ -47,21 +47,25 @@ const sessionSchema = new mongoose.Schema({
 			type: Number
 		}
 	}],
-	questions: [{
-		question: [{
-			hovered: [{
-				type: mongoose.Schema.ObjectId,
-				ref: 'Course'
-			}],
-			answer: {
-				type: mongoose.Schema.ObjectId,
-				ref: 'Course'
+	questions: {
+		courses: [{
+			selection: {
+				type: String
 			},
-			answerCorrect: {
-				type: Boolean
-			}
-		}],
-	}],
+			question: [{
+				refQuestion: {
+					type: mongoose.Schema.Types.ObjectId,
+					ref: 'Course'
+				},
+				choice: {
+					type: String
+				},
+				answerCorrect: {
+					type: Boolean
+				}
+			}],
+		}]
+	},
 	created: {
 		type: Date,
 		default: Date.now
@@ -70,9 +74,12 @@ const sessionSchema = new mongoose.Schema({
 
 function autopopulate(next) {
 	this.populate('courseHover.selection');
+	this.populate('course_selection.selection');
+	this.populate('questions.question.refQuestion');
 	next();
 }
 
 sessionSchema.pre('find', autopopulate);
 sessionSchema.pre('findOne', autopopulate);
+
 module.exports = mongoose.model('TrackSession', sessionSchema);

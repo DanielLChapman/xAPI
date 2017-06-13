@@ -35,8 +35,17 @@ router.get('/course/:id',
 router.get('/course/:id/questions', 
 	authController.isLoggedIn,
 	sessionController.hasStartedSession,
-	catchErrors(sessionController.updateTime)
+	catchErrors(courseController.getQuestions)
 	);
+router.post('/course/:id/questions/answers', 
+	authController.isLoggedIn,
+	sessionController.hasStartedSession,
+	catchErrors(courseController.checkAnswers),
+	catchErrors(sessionController.storeQuestionSession),
+	courseController.nextStep
+	);
+
+
 //login
 router.get('/login', userController.loginForm);
 router.post('/login', authController.login);
