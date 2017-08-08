@@ -1,0 +1,49 @@
+extends layout
+
+block content
+	.inner
+		h2 Results
+		p Hovering:
+		p You entered the page on: #{courseHover.timeEnter.toLocaleString()}
+		p You hovered #{courseHover.selection.length} times
+		- var count = 1;
+		ul(style="list-style: none")
+			each course in courseHover.selection
+				li
+					small(style='padding-right: 15px') #{count}. #{course.name} - style #{course.style}
+					- count++;
+	
+		p Selected:
+		p You selected the course on: #{courseSelection.timeEnter.toLocaleString()}
+		p You selected: #{courseSelection.selection.name}
+
+		if (videos.length != 0)
+			p Video Stats:
+			p You had to watch the video #{videos.length} times.
+			- var count = 1;
+			each video in videos
+				.video-info-div(style="position: relative; left: 15px; font-size: 13px;")
+					p Watch Count: #{count}
+					p You entered the page at #{video.timeEnterPage.toLocaleString()}
+					p You started the video at #{video.timeEnterPage.toLocaleString()}
+					p You watched #{video.durationWatched} seconds of the video
+					p You left the page at #{video.timeLeavePage}
+				<br />
+				- count++
+				
+				
+		if (questions.courses.length != 0) 
+			p Question Stats:
+			p It took you #{questions.courses.length} tries to get the right answers
+			- var count = 1;
+			each setQuest in questions.courses
+				p Set of Questions: #{count}
+				.questions-info(style="position: relative; left: 15px; font-size: 13px;")
+					- var questionNum = 1
+						each question in setQuest.question
+							p(style="font-size: 15px") Question #{questionNum}
+							p Your Answer: #{question.choice}
+							if (question.answerCorrect)
+								p It was the right answer
+							- questionNum++;
+							<br />

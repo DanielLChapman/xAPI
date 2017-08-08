@@ -86,7 +86,3 @@ exports.checkAnswers = async (req, res, next) => {
 	}
 	next();
 }
-
-exports.nextStep = (req, res) => {
-	res.json('it works');
-}

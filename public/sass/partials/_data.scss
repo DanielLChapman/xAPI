@@ -1,0 +1,29 @@
+.data_nav {
+	width: 450px;
+	margin: 0 auto;
+	margin-top: 70px;
+	.nav_tab {
+		width: 185px;
+		height: 50px;
+		display: inline-block;
+		border:1px solid black;
+		vertical-align: top;
+		padding-left: 15px;
+		
+		&:active {
+			border:1px solid orange;
+		}
+	}
+}
+
+.data_display {
+	width: 95%;
+	left: 2.5%;
+	border:1px solid black;
+	min-height: 300px;
+	height: auto;
+	margin-top: 35px;
+	.tab_display {
+		display: none;
+	}
+}

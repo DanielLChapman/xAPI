@@ -1,0 +1,110 @@
+extends layout
+
+block content
+	script(src='https://d3js.org/d3.v4.min.js')
+	
+	script(src="/dist/dataVariables.js")
+		
+	.inner
+		.data_nav
+			if (user)
+				.tab_1.nav_tab(onclick="openTab(1)")
+					p Your Data
+			.tab_2.nav_tab(onclick="openTab(2);")
+				p All Data
+		
+		.data_display
+			if (user)
+				.tab_1_display.tab_display(style="display: block;")
+					ul(style="list-style:none;")
+							- count = 1
+							each session in sessions
+								li 
+									a(href=`/sessionData/${session._id}`) Session #{count} 
+								- count++;
+				.tab_2_display.tab_display
+					h3(style="padding-left:5px") How Much Each Course Was Hovered
+					svg(width="300" height="300" class="courseHoverSVG")
+					
+					h3(style="padding-left:5px") How Much Each Course Was Selected
+					svg(width="300" height="300" class="courseSelectionSVG")
+						
+					h3(style="padding-left:5px") How Many Times the Video In Each Course Was Watched
+					svg(width="300" height="300" class="courseVideosWatchSVG")
+
+					h3(style="padding-left:5px") Average Watch Time of Each Video
+					svg(width="300" height="300" class="avgVideosWatchSVG")
+	
+					h3(style="padding-left:5px") Average Number Of Tries At Questions
+					svg(width="300" height="300" class="avgNumOfTriesAtQuestionsSVG")
+					
+					-var count = 0;
+					each course in courseNumOfWrongQuestions
+						h3(style="padding-left:5px") The Number of Wrong Answers For Each Question in Course #{count}
+						if (course == '0,0,0') 
+							h3(style="padding-left:5px") No Wrong Answers
+						else 
+							svg(width="300" height="300" class="wrongAnswersFor_"+ count)
+						script var tempToPush = []
+						each value in course
+							script tempToPush.push(['Question ' + #{count}, #{value}])
+						script coursesWrongQuestions.push(tempToPush)
+						-count++
+					
+					-for (var i = 0; i < courses.length; i++) 
+						script var temp = ['Course ' + #{i}, #{ courseHoverCount[i].amount}]
+						script courseHoverSVG.push(temp)
+						script var temp = ['Course ' + #{i}, #{ courseSelectionCount[i]}]
+						script courseSelectionSVG.push(temp)
+						script var temp = ['Course ' + #{i}, #{ courseVideoWatchCount[i]}]
+						script courseVideoWatchSVG.push(temp)
+						script var temp = ['Video ' + #{i}, #{ courseAverageWatchDuration[i]}]
+						script avgVideoWatchSVG.push(temp)
+						script var temp = ['Course ' + #{i}, #{ courseQuestions[i]}]
+						script avgNumOfTriesAtQuestions.push(temp)
+						
+
+			else 
+				.tab_2_display
+					h3(style="padding-left:5px") How Much Each Course Was Hovered
+					svg(width="300" height="300" class="courseHoverSVG")
+					
+					h3(style="padding-left:5px") How Much Each Course Was Selected
+					svg(width="300" height="300" class="courseSelectionSVG")
+						
+					h3(style="padding-left:5px") How Many Times the Video In Each Course Was Watched
+					svg(width="300" height="300" class="courseVideosWatchSVG")
+
+					h3(style="padding-left:5px") Average Watch Time of Each Video
+					svg(width="300" height="300" class="avgVideosWatchSVG")
+	
+					h3(style="padding-left:5px") Average Number Of Tries At Questions
+					svg(width="300" height="300" class="avgNumOfTriesAtQuestionsSVG")
+					
+					-var count = 0;
+					each course in courseNumOfWrongQuestions
+						h3(style="padding-left:5px") The Number of Wrong Answers For Each Question in Course #{count}
+						if (course == '0,0,0') 
+							h3(style="padding-left:5px") No Wrong Answers
+						else 
+							svg(width="300" height="300" class="wrongAnswersFor_"+ count)
+						script var tempToPush = []
+						each value in course
+							script tempToPush.push(['Question ' + #{count}, #{value}])
+						script coursesWrongQuestions.push(tempToPush)
+						-count++
+					
+					-for (var i = 0; i < courses.length; i++) 
+						script var temp = ['Course ' + #{i}, #{ courseHoverCount[i].amount}]
+						script courseHoverSVG.push(temp)
+						script var temp = ['Course ' + #{i}, #{ courseSelectionCount[i]}]
+						script courseSelectionSVG.push(temp)
+						script var temp = ['Course ' + #{i}, #{ courseVideoWatchCount[i]}]
+						script courseVideoWatchSVG.push(temp)
+						script var temp = ['Video ' + #{i}, #{ courseAverageWatchDuration[i]}]
+						script avgVideoWatchSVG.push(temp)
+						script var temp = ['Course ' + #{i}, #{ courseQuestions[i]}]
+						script avgNumOfTriesAtQuestions.push(temp)
+	script(src="/dist/dataDisplay.js")
+			
+			

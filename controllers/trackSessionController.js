@@ -39,12 +39,13 @@ exports.apiUpdateHover = async( req, res) => {
 
 exports.apiUpdateVideo = async (req, res) => {
 	const session = await Session.findOne({_id: storage.getItemSync('session_id') }).exec();
-	
+
 	var Video = {
 		timeLeavePage: Date.now(),
 		timeEnterPage: storage.getItemSync('timeEnterVideo'),
 		durationWatched: req.params.oid,
-		timeStart: req.params.oid2
+		timeStart: req.params.oid2,
+		selection: req.params.courseId
 	}
 
 	session.video.push(Video);
@@ -74,13 +75,104 @@ exports.updateTime = async (req, res, next) => {
 }
 
 
-exports.storeQuestionSession = async (req, res, next) => {
+exports.storeQuestionSession = async (req, res) => {
 	const session = await Session.findOne({_id: storage.getItemSync('session_id') }).exec();
 	session.questions.courses.push(req.body.coursesObj);
 	await session.save();
 	
-	if (req.body.correct = true) {
-		
+	if (req.body.correct == true) {
+		res.locals.messages = req.flash('success', 'Congrats, you got all the questions right');
+		res.redirect('/sessionData/'+session._id);
+		return;
 	}
-	next();
+	
+	res.locals.messages = req.flash('error', 'Your answers were wrong');
+	res.redirect('/course/'+req.params.id);
+}
+
+exports.displaySessionData = async (req, res) => {
+	
+	if(req.params.id) {
+		const session = await Session.findOne({_id: req.params.id  }).exec();
+		const user = await User.findOne({ email: req.session.passport.user }).exec();
+		if (session.user.toString()==(user._id.toString())) {
+			var courseHover = session.courseHover;
+			var courseSelection = session.course_selection;
+			var videos = session.video;
+			var questions = session.questions;	
+			res.render('sessionData', {title: 'Session Data', courseHover, courseSelection, videos, questions});
+			return;
+		}
+	}
+	res.redirect('/');
+	
+}
+
+exports.displayAllData = async (req, res) => {
+	var user = null;
+	var sessions = null;
+	if (req.user) {
+		user = await User.findOne({ email: req.session.passport.user }).exec();
+		sessions = await Session.find({user: user._id}).exec();
+	}
+	
+	const courses = await Course.find({}).exec();
+	const courseHoverCount = [];
+	const courseSelectionCount = [];
+	const courseVideoWatchCount = [];
+	const courseAverageWatchDuration = [];
+	const courseQuestions = [];
+	const courseNumOfWrongQuestions = [];
+	
+	var duration = 0.0;
+	var totalNumHovers = 0;
+	for (var i = 0; i < courses.length; i++) {
+		//for frequencies for hover count
+		let totalCourseHoversForThisCourse = (await Session.find({"courseHover.selection": courses[i]._id }).count());
+		
+		courseHoverCount.push({
+			course: i,
+			amount: totalCourseHoversForThisCourse
+		});
+		totalNumHovers+=totalCourseHoversForThisCourse;
+		//
+		
+		courseSelectionCount.push(await Session.find({"course_selection.selection": courses[i]._id }).count());
+		var sessionsPerCourseId = await Session.find({"video.selection": courses[i]._id }).exec();
+		var tempNumOfTriesPerCourseId = 0;
+		var tempAverageWatchDuration = 0;
+		
+		var totalNumOfSessions = sessionsPerCourseId.length;
+		
+		var numOfTriesOfQuestionsPerCourse = [];
+		var countOfWrongForEachIndividualTry = new Array(sessionsPerCourseId[0].questions.courses[0].question.length);
+		for (var tempLoop = 0; tempLoop < sessionsPerCourseId[0].questions.courses[0].question.length; tempLoop++) {
+			countOfWrongForEachIndividualTry[tempLoop] = 0;
+		}
+		
+		for (var q = 0; q < totalNumOfSessions; q++) {
+			tempNumOfTriesPerCourseId += sessionsPerCourseId[q].video.length;
+			
+			for (var x = 0; x < sessionsPerCourseId[q].video.length; x++) {
+				tempAverageWatchDuration += sessionsPerCourseId[q].video[x].durationWatched;
+				for (var c = 0; c < sessionsPerCourseId[q].questions.courses[x].question.length; c++) {
+					if (!(sessionsPerCourseId[q].questions.courses[x].question[c].answerCorrect)) {
+						countOfWrongForEachIndividualTry[c]++;
+					}
+					
+				}
+			}
+		}
+		
+		
+		tempAverageWatchDuration = parseFloat(Math.round(tempAverageWatchDuration/tempNumOfTriesPerCourseId * 100) / 100).toFixed(2);
+		var tempAvgNumOfTriesAtQuestions = parseFloat(Math.round(tempNumOfTriesPerCourseId/totalNumOfSessions * 100) / 100).toFixed(2);
+		
+		courseVideoWatchCount.push(tempNumOfTriesPerCourseId);
+		courseAverageWatchDuration.push(tempAverageWatchDuration);
+		courseQuestions.push(tempAvgNumOfTriesAtQuestions);
+		courseNumOfWrongQuestions.push(countOfWrongForEachIndividualTry);
+	}
+
+	res.render('data', {title: 'Data', user, sessions, courses, courseHoverCount, courseSelectionCount, courseVideoWatchCount, courseAverageWatchDuration, courseQuestions, courseNumOfWrongQuestions});
 }

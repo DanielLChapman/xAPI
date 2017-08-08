@@ -41,11 +41,19 @@ router.post('/course/:id/questions/answers',
 	authController.isLoggedIn,
 	sessionController.hasStartedSession,
 	catchErrors(courseController.checkAnswers),
-	catchErrors(sessionController.storeQuestionSession),
-	courseController.nextStep
+	catchErrors(sessionController.storeQuestionSession)
 	);
 
+router.get('/sessionData/:id',
+	authController.isLoggedIn,
+	sessionController.hasStartedSession,
+	catchErrors(sessionController.displaySessionData)
+					 );
 
+router.get('/data',
+	catchErrors(sessionController.displayAllData)
+					 );
+	
 //login
 router.get('/login', userController.loginForm);
 router.post('/login', authController.login);
@@ -62,7 +70,7 @@ router.post('/register',
 router.post('/api/apiUpdateHover/:switch/:oid/', sessionController.apiUpdateHover);
 
 //video
-router.post('/api/apiUpdateVideo/:switch/:oid/:oid2', 
+router.post('/api/apiUpdateVideo/:switch/:oid/:oid2/:courseId', 
 		sessionController.apiUpdateVideo
 	);
 

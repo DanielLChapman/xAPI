@@ -33,6 +33,10 @@ const sessionSchema = new mongoose.Schema({
 		}
 	},
 	video: [{
+		selection: {
+			type: mongoose.Schema.ObjectId,
+			ref: 'Course'
+		},
 		timeEnterPage: {
 			type: Date,
 			default: Date.now
@@ -54,7 +58,7 @@ const sessionSchema = new mongoose.Schema({
 			},
 			question: [{
 				refQuestion: {
-					type: mongoose.Schema.Types.ObjectId,
+					type: mongoose.Schema.ObjectId,
 					ref: 'Course'
 				},
 				choice: {
@@ -75,9 +79,28 @@ const sessionSchema = new mongoose.Schema({
 function autopopulate(next) {
 	this.populate('courseHover.selection');
 	this.populate('course_selection.selection');
-	this.populate('questions.question.refQuestion');
+	this.populate('questions.courses.question.refQuestion');
 	next();
 }
+
+/*
+sessionSchema.statics.getVideoWatchCount = function() {
+	
+	return this.aggregate([
+		{
+			$unwind: "$video" 
+		},
+		{
+			$group: {
+        _id: '$_id',
+        count: { $sum: 1 }
+			}
+		},
+		function(err, result) {
+			console.log(result);
+		}
+	]);
+}*/
 
 sessionSchema.pre('find', autopopulate);
 sessionSchema.pre('findOne', autopopulate);

@@ -6,7 +6,7 @@ block content
 			source(src=`${course.video}`, type="video/mp4")
 			| Your browser does not support the video tag for mp4s. 
 		
-		button(onclick="moveToQuestions();")
+		button(onclick=`moveToQuestions('${course._id}');`)
 			Continue to questions
 			
 	script

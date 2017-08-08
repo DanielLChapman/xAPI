@@ -1,4 +1,4 @@
-function apiUpdate(type, oid, oid2) {
+function apiUpdate(type, oid, oid2,id) {
 	var http = new XMLHttpRequest();
 	var urlMain = '';
 	var url = '';
@@ -12,7 +12,7 @@ function apiUpdate(type, oid, oid2) {
 			break;
 	}
 	if (oid2) {
-		urlMain = "/api/"+url+"/" + type + "/" + oid + "/" + oid2;
+		urlMain = "/api/"+url+"/" + type + "/" + oid + "/" + oid2 + "/" + id;
 	}
 	else {
 		urlMain = "/api/"+url+"/" + type + "/" + oid;
@@ -45,7 +45,6 @@ if ( location.href.match(/course/) && !location.href.match(/courses/) && !locati
 						if (isPlaying == 0) {
 							isPlaying = 1; 
 							timeStartedPlaying = Date.now();
-							console.log(timeStartedPlaying);
 						}
 					}
 				} catch(err) {
@@ -53,9 +52,9 @@ if ( location.href.match(/course/) && !location.href.match(/courses/) && !locati
     }
 }, 500);
 	
-	function moveToQuestions() {
+	function moveToQuestions(id) {
 		var moveOn = '/';
-		moveOn = apiUpdate('videoWatched', videoWatched, timeStartedPlaying);
+		moveOn = apiUpdate('videoWatched', videoWatched, timeStartedPlaying, id);
 		var at = setInterval(function() {
 			if (moveOn = 'Updated') {
 				clearInterval(t);
@@ -64,4 +63,14 @@ if ( location.href.match(/course/) && !location.href.match(/courses/) && !locati
 			}
 		}, 500);
 	}
+}
+
+function openTab(num) {
+	var tab = 'tab_'+num+'_display';
+	var tabsToOpen = document.getElementsByClassName(tab)[0];
+	var allTabs = document.getElementsByClassName('tab_display');
+	allTabs[0].style.display = 'none';
+	allTabs[1].style.display = 'none';
+	tabsToOpen.style.display = 'block';
+	
 }
