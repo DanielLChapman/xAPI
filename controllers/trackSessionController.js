@@ -108,14 +108,7 @@ exports.displaySessionData = async (req, res) => {
 	
 }
 
-exports.displayAllData = async (req, res) => {
-	var user = null;
-	var sessions = null;
-	if (req.user) {
-		user = await User.findOne({ email: req.session.passport.user }).exec();
-		sessions = await Session.find({user: user._id}).exec();
-	}
-	
+exports.displayAllDataAPI = async (req, res) => {
 	const courses = await Course.find({}).exec();
 	const courseHoverCount = [];
 	const courseSelectionCount = [];
@@ -125,7 +118,6 @@ exports.displayAllData = async (req, res) => {
 	const courseNumOfWrongQuestions = [];
 	
 	var duration = 0.0;
-	var totalNumHovers = 0;
 	for (var i = 0; i < courses.length; i++) {
 		//for frequencies for hover count
 		let totalCourseHoversForThisCourse = (await Session.find({"courseHover.selection": courses[i]._id }).count());
@@ -134,10 +126,11 @@ exports.displayAllData = async (req, res) => {
 			course: i,
 			amount: totalCourseHoversForThisCourse
 		});
-		totalNumHovers+=totalCourseHoversForThisCourse;
-		//
 		
-		courseSelectionCount.push(await Session.find({"course_selection.selection": courses[i]._id }).count());
+		courseSelectionCount.push({
+			course: i,
+			amount: await Session.find({"course_selection.selection": courses[i]._id }).count()
+		});
 		var sessionsPerCourseId = await Session.find({"video.selection": courses[i]._id }).exec();
 		var tempNumOfTriesPerCourseId = 0;
 		var tempAverageWatchDuration = 0;
@@ -168,11 +161,36 @@ exports.displayAllData = async (req, res) => {
 		tempAverageWatchDuration = parseFloat(Math.round(tempAverageWatchDuration/tempNumOfTriesPerCourseId * 100) / 100).toFixed(2);
 		var tempAvgNumOfTriesAtQuestions = parseFloat(Math.round(tempNumOfTriesPerCourseId/totalNumOfSessions * 100) / 100).toFixed(2);
 		
-		courseVideoWatchCount.push(tempNumOfTriesPerCourseId);
-		courseAverageWatchDuration.push(tempAverageWatchDuration);
-		courseQuestions.push(tempAvgNumOfTriesAtQuestions);
-		courseNumOfWrongQuestions.push(countOfWrongForEachIndividualTry);
+		courseVideoWatchCount.push({
+			course: i,
+			amount: tempNumOfTriesPerCourseId
+		});
+		courseAverageWatchDuration.push({
+			course: i,
+			amount: tempAverageWatchDuration
+		});
+		courseQuestions.push({
+			course: i,
+			amount: tempAvgNumOfTriesAtQuestions
+		});
+		courseNumOfWrongQuestions.push({
+			course: i,
+			amount: countOfWrongForEachIndividualTry
+		});
 	}
+	
+	res.json({courseHoverCount: courseHoverCount, courseSelectionCount: courseSelectionCount, courseVideoWatchCount: courseVideoWatchCount, courseAverageWatchDuration: courseAverageWatchDuration, courseQuestions: courseQuestions, courseNumOfWrongQuestions: courseNumOfWrongQuestions});
+};
 
-	res.render('data', {title: 'Data', user, sessions, courses, courseHoverCount, courseSelectionCount, courseVideoWatchCount, courseAverageWatchDuration, courseQuestions, courseNumOfWrongQuestions});
+exports.displayAllData = async (req, res) => {
+	var user = null;
+	var sessions = null;
+	if (req.user) {
+		user = await User.findOne({ email: req.session.passport.user }).exec();
+		sessions = await Session.find({user: user._id}).exec();
+	}
+	
+	const courses = await Course.find({}).exec();
+	
+	res.render('data', {title: 'Data', user, sessions, courses});
 }

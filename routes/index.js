@@ -76,4 +76,6 @@ router.post('/api/apiUpdateVideo/:switch/:oid/:oid2/:courseId',
 
 router.get('/logout', authController.logout);
 
+router.get('/api/getAllData', sessionController.displayAllDataAPI);
+
 module.exports = router;

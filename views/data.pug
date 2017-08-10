@@ -50,18 +50,7 @@ block content
 							script tempToPush.push(['Question ' + #{count}, #{value}])
 						script coursesWrongQuestions.push(tempToPush)
 						-count++
-					
-					-for (var i = 0; i < courses.length; i++) 
-						script var temp = ['Course ' + #{i}, #{ courseHoverCount[i].amount}]
-						script courseHoverSVG.push(temp)
-						script var temp = ['Course ' + #{i}, #{ courseSelectionCount[i]}]
-						script courseSelectionSVG.push(temp)
-						script var temp = ['Course ' + #{i}, #{ courseVideoWatchCount[i]}]
-						script courseVideoWatchSVG.push(temp)
-						script var temp = ['Video ' + #{i}, #{ courseAverageWatchDuration[i]}]
-						script avgVideoWatchSVG.push(temp)
-						script var temp = ['Course ' + #{i}, #{ courseQuestions[i]}]
-						script avgNumOfTriesAtQuestions.push(temp)
+
 						
 
 			else 
@@ -82,29 +71,13 @@ block content
 					svg(width="300" height="300" class="avgNumOfTriesAtQuestionsSVG")
 					
 					-var count = 0;
-					each course in courseNumOfWrongQuestions
+					each course in courses
 						h3(style="padding-left:5px") The Number of Wrong Answers For Each Question in Course #{count}
-						if (course == '0,0,0') 
-							h3(style="padding-left:5px") No Wrong Answers
-						else 
-							svg(width="300" height="300" class="wrongAnswersFor_"+ count)
-						script var tempToPush = []
-						each value in course
-							script tempToPush.push(['Question ' + #{count}, #{value}])
-						script coursesWrongQuestions.push(tempToPush)
+						h3(class="h3noWrongAnswers noWrongAnswersFor_"+ count) No Wrong Answers
+						svg(width="300" height="300" class="wrongAnswersFor_"+ count)
+						
 						-count++
-					
-					-for (var i = 0; i < courses.length; i++) 
-						script var temp = ['Course ' + #{i}, #{ courseHoverCount[i].amount}]
-						script courseHoverSVG.push(temp)
-						script var temp = ['Course ' + #{i}, #{ courseSelectionCount[i]}]
-						script courseSelectionSVG.push(temp)
-						script var temp = ['Course ' + #{i}, #{ courseVideoWatchCount[i]}]
-						script courseVideoWatchSVG.push(temp)
-						script var temp = ['Video ' + #{i}, #{ courseAverageWatchDuration[i]}]
-						script avgVideoWatchSVG.push(temp)
-						script var temp = ['Course ' + #{i}, #{ courseQuestions[i]}]
-						script avgNumOfTriesAtQuestions.push(temp)
+
 	script(src="/dist/dataDisplay.js")
 			
 			

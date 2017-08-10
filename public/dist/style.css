@@ -254,12 +254,25 @@ form {
   .data_display .tab_display {
     display: none; }
 
+.h3noWrongAnswers {
+  display: none;
+  padding-left: 5px; }
+
 .arc text {
   font: 10px sans-serif;
   text-anchor: middle; }
 
 .arc path {
   stroke: #fff; }
+
+.axis {
+  font: 10px sans-serif; }
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges; }
 
 body, html {
   width: 100%;
